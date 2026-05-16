@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Sequelize, DataTypes } = require("sequelize");
 const dbConfig = require("../config/dbConfig");
+const userModel = require("./userModel.js");
 
 const { databaseName, userName, password, host } = dbConfig;
 console.log(process.env);
@@ -28,6 +29,8 @@ sequelize
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.blog = require("./blogModel.js")(sequelize, DataTypes);
+db.user = require("./userModel")(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Synced done");
